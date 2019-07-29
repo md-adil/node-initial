@@ -1,3 +1,3 @@
-exports.index = (req, res) => {
-    res.send('Wecome Home');
-}
+exports.index = req => {
+    return "Welcome home";
+};
