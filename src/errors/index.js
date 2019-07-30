@@ -7,6 +7,12 @@ class AppError extends Error {
 
 class ResponseError extends AppError {}
 
+class ValidationError extends ResponseError {
+    constructor(message) {
+        super(message, 422);
+    }
+}
+
 class ResponseWarning extends AppError {}
 
 class MailError extends AppError {}
@@ -21,3 +27,4 @@ exports.AppError = AppError;
 exports.ResponseError = ResponseError;
 exports.AuthError = AuthError;
 exports.MailError = MailError;
+exports.ValidationError = ValidationError;
