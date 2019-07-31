@@ -6,13 +6,19 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "nodemon src/index.js",
-        "migrate": "knex migrate:latest"
+        "migrate": "knex migrate:latest",
+        "migrate:make": "knex migrate:make",
+        "db": "node ./db",
+        "db:connect": "yarn db connect",
+        "db:tables": "yarn db tables"
     },
     "keywords": [],
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "bcrypt": "^3.0.6",
         "bluebird": "^3.5.5",
+        "chalk": "^2.4.2",
         "dotenv": "^8.0.0",
         "express": "^4.16.3",
         "jsonwebtoken": "^8.5.1",

@@ -1,14 +1,18 @@
 const { Router } = require("express"),
+    bodyParser = require('body-parser'),
     authMiddleware = require("../middlewares/authentication");
 const controller = require("../controllers");
 
 const userController = controller("userController"),
-    loginController = controller("loginController");
+    loginController = controller("auth/loginController"),
+    registerController = controller("auth/registerController");
 
-const router = Router();
-router.post("/login", loginController.login);
+const route = Router();
+route.use(bodyParser.json());
+route.post("/login", loginController.login);
+route.post('/register', registerController.register);
 
-// router.use(authMiddleware());
-router.get("/users", userController.index);
+route.use(authMiddleware());
+route.get("/users", userController.index);
 
-module.exports = router;
+module.exports = route;

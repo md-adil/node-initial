@@ -17,13 +17,15 @@ Layer.prototype.handle_request = async function(req, res, next) {
             res.send(newResponse);
         }
     } catch (err) {
+        // When throws Response error.
+        if (err instanceof ResponseError) {
+            return err.handle(req, res);
+        }
+
         if (req.headers.accept !== "application/json") {
             return next(err);
         }
-        // When throws Response error.
-        if (err instanceof ResponseError) {
-            return res.status(err.code || 500).send({ message: err.message });
-        }
+        
         debug(err);
         return res
             .status(500)
