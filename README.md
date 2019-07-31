@@ -6,7 +6,7 @@
 cd my-project
 yarn
 cp .env.example .env
-# change .env file update database name & config
+# change .env file update database name & settings
 yarn migrate
 yarn start
 ```
@@ -106,11 +106,11 @@ yarn db:tables
 Explain table through native client
 
 ```bash
-yarn db:explain users
+yarn db explain users
 ```
 
 Select from tables with or without limit through native client
 
 ```bash
-yarn db:select users 100 # default 1000
+yarn db select users 100 # default 1000
 ```
