@@ -82,3 +82,35 @@ exports.index = async req => {
     return User.query().page(req.query.page, 25);
 };
 ```
+
+### Database and Migrations
+
+Migrate database
+
+```bash
+yarn migrate
+```
+
+Connect database through native client
+
+```bash
+yarn db:connect
+```
+
+Show all tables through native client
+
+```bash
+yarn db:tables
+```
+
+Explain table through native client
+
+```bash
+yarn db:explain users
+```
+
+Select from tables with or without limit through native client
+
+```bash
+yarn db:select users 100 # default 1000
+```
