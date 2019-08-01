@@ -8,5 +8,5 @@ exports.index = async req => {
             422 /** Response error code */
         );
     }
-    return User.query().page(req.query.page, 25);
+    return User.query().page(parseInt(req.query.page) - 1, 25);
 };

@@ -1,4 +1,4 @@
-# Simple nodejs starter with express routing and objection model.
+# Simple Node js starter with express routing and objection model.
 
     git clone https://github.com/md-adil/node-starter my-project
 
@@ -14,6 +14,13 @@ yarn start
 ### We have already written some codes for you
 
 #### Login
+```js
+// src/routes/api.js
+
+const controller = require("../controllers"),
+    loginController = controller("auth/loginController");
+route.post("/login", loginController.login);
+```
 ```js
 // src/controllers/auth/loginController.js
 
@@ -34,8 +41,50 @@ exports.login = async req => {
     }
 }
 
+
 ```
+### Request
+    POST /api/login
+Headers
+
+    Content-Type: application/json
+    Accept: application/json
+
+Required  `Accept: application/json`  when need json as response
+
+Request body
+```json
+{
+    "email": "someemail@somedomain.com",
+    "password": "password"
+}
+```
+### Response
+Error response body with `status code 422`
+```json
+{
+    "message": "Invalid credentials"
+}
+```
+Success Response body
+```json
+{
+    "token": "<token>",
+    "user": {
+        "id": 1,
+        "name": "Name",
+        "email": "someemail@somedomain.com",
+    }
+}
+```
+
 #### Resister
+```js
+// src/routes/api.js
+
+const registerController = controller("auth/registerController");
+router.post("/users", registerController.register);
+```
 
 ```js
 // src/controllers/auth/registerController.js
@@ -54,7 +103,6 @@ exports.register = async req => {
         token, user
     }
 };
-
 ```
 #### Fetching users
 ```js
@@ -81,6 +129,44 @@ exports.index = async req => {
     }
     return User.query().page(req.query.page, 25);
 };
+```
+
+
+### Request
+    GET /api/users?page=1
+
+Headers
+
+    Accept: application/json
+    Authorization: <token> // the token from login response
+
+Required  `Accept: application/json`  when need json as response
+
+
+### Response
+Error response body with `status code 422`
+```json
+{
+    "message": "Page is required"
+}
+```
+Success Response body
+```json
+{
+    "results": [
+        {
+            "id": 1,
+            "name": "Adil",
+            "email": "adil.sudo@gmail.com",
+        },
+        {
+            "id": 2,
+            "name": "Adil",
+            "email": "md-adil@gmail.com",
+        }
+    ],
+    "total": 2
+}
 ```
 
 ### Database and Migrations
@@ -114,3 +200,12 @@ Select from tables with or without limit through native client
 ```bash
 yarn db select users 100 # default 1000
 ```
+
+## Note
+This is only for mysql and rest api.
+
+This is basic setup, how I use in my production environment, I want to extend it as full-fledged another javascript backend framework.
+Need some feedback and suggestion.
+
+Thanks In Advanced,
+Adil.
