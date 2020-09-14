@@ -13,6 +13,24 @@ yarn start
 
 ### We have already written some codes for you
 
+#### HOME
+    GET /
+```js
+// homeController
+exports.index = req => {
+    return "Hello World"
+}
+```
+    GET /different-code
+```js
+// homeController
+const Response = require("../http/response");
+
+exports.diffCode = req => {
+    return new Response("Hello World", 300);
+}
+```
+
 #### Login
 ```js
 // src/routes/api.js

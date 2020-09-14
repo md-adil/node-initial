@@ -4,4 +4,5 @@ const { Router } = require("express"),
 
 const app = Router();
 app.get("/", homeController.index);
+app.get("/different-code", homeController.diffCode);
 module.exports = app;

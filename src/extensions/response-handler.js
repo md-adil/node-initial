@@ -1,7 +1,8 @@
 const http = require("http"),
     Layer = require("express/lib/router/layer"),
     debug = require("debug")("app:extensions:response-handler"),
-    { ResponseError, MailError } = require("../errors");
+    Response = require("../http/response"),
+    { ResponseError } = require("../errors");
 
 Layer.prototype.handle_request = async function(req, res, next) {
     const fn = this.handle;
@@ -14,7 +15,11 @@ Layer.prototype.handle_request = async function(req, res, next) {
             typeof newResponse !== "undefined" &&
             !(newResponse instanceof http.ServerResponse)
         ) {
-            res.send(newResponse);
+            if (newResponse instanceof Response) {
+                res.status(newResponse.statusCode).send(newResponse.body);
+            } else {
+                res.send(newResponse);
+            }
         }
     } catch (err) {
         // When throws Response error.
@@ -25,7 +30,7 @@ Layer.prototype.handle_request = async function(req, res, next) {
         if (req.headers.accept !== "application/json") {
             return next(err);
         }
-        
+
         debug(err);
         return res
             .status(500)
